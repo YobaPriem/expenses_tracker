@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:expenses_tracker/widgets/transactions/transactions_item.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -11,14 +13,54 @@ class MyApp extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = ThemeData(
+      fontFamily: 'Montserrat',
+      primarySwatch: Colors.purple,
+      appBarTheme: const AppBarTheme(
+        titleTextStyle: TextStyle(
+          fontFamily: 'Montserrat',
+          fontSize: 24,
+          fontVariations: [
+            FontVariation('wght', 500)
+          ]
+        )
+      ),
+      textTheme: ThemeData.light().textTheme.copyWith(
+        // TODO: ?This might be helpful?
+        // displayMedium:  TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        // displaySmall:   TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        // displayLarge:   TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        // headlineLarge:  TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        // headlineMedium: TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        // headlineSmall:  TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        // titleLarge:     TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        // titleMedium:    TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        // titleSmall:     TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        // labelLarge:     TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        // labelMedium:    TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        // labelSmall:     TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        // bodyLarge:      TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        // bodyMedium:     TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        // bodySmall:      TextStyle(fontVariations: [FontVariation('wght', 400)]),
+
+        titleLarge: const TextStyle(fontVariations: [FontVariation('wght', 400)]),
+        bodyMedium: const TextStyle(
+          fontSize: 16,
+          fontVariations: [FontVariation('wght', 400)]
+        ),
+        bodySmall: const TextStyle(
+          fontSize: 14,
+          fontVariations: [FontVariation('wght', 400)]
+        )
+      )
+    );
+
     return MaterialApp(
       title: 'Exprenses tracker',
       home: const MyHomePage(),
-      theme: ThemeData(
-        colorScheme: ColorScheme
-          .fromSwatch(primarySwatch: Colors.purple)
-          .copyWith(secondary: Colors.amber),
-      ),
+      theme: theme.copyWith(
+        colorScheme: theme.colorScheme.copyWith(secondary: Colors.amber),
+      )
     );
   }
 }

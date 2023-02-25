@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:expenses_tracker/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -38,14 +40,14 @@ class TransactionsItem extends StatelessWidget {
               Text(
                 transaction.title,
                 style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16
+                  fontVariations: [
+                    FontVariation('wght', 600)
+                  ],
                 ),
               ),
               Text(
                 DateFormat('dd MMMM yyyy', 'ru').format(transaction.date),
-                style: const TextStyle(
-                  fontSize: 14,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Colors.grey
                 )
               )
