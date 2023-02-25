@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 
-class TransactionsForm extends StatelessWidget {
-  TransactionsForm({super.key, required this.onSubmitCallback});
+class TransactionsForm extends StatefulWidget {
+  const TransactionsForm({super.key, required this.onSubmitCallback});
 
+  final Function(String, double) onSubmitCallback;
+
+  @override
+  State<TransactionsForm> createState() => _TransactionsFormState();
+}
+
+class _TransactionsFormState extends State<TransactionsForm> {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
-  final Function(String, double) onSubmitCallback;
 
   void submit () {
     final double? amount = double.tryParse(amountController.text);
@@ -14,7 +20,9 @@ class TransactionsForm extends StatelessWidget {
     if (titleController.text.isEmpty || amount == null || amount < 0) {
       return;
     }
-    onSubmitCallback(titleController.text, amount);
+    widget.onSubmitCallback(titleController.text, amount);
+
+    Navigator.of(context).pop();
   }
 
   @override
@@ -32,7 +40,7 @@ class TransactionsForm extends StatelessWidget {
             ),
             TextField(
               keyboardType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: const InputDecoration(labelText: 'amount'),
               controller: amountController,
               onSubmitted: (_) => submit(),

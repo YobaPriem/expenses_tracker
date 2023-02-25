@@ -19,16 +19,16 @@ class TransactionsItem extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               border: Border.all(
-                color: Colors.purple,
                 width: 2,
+                color: Theme.of(context).primaryColor
               )
             ),
             child: Text(
-              '${transaction.amount} ₽',
-              style: const TextStyle(
+              '${transaction.amount.toStringAsFixed(2)} ₽',
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
-                color: Colors.purple
+                color: Theme.of(context).primaryColor
               ),
             ),
           ),
