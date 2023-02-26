@@ -1,10 +1,13 @@
 import 'dart:ui';
-
-import 'package:expenses_tracker/widgets/transactions/transactions_item.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:expenses_tracker/widgets/transactions/transactions_form.dart';
+
 import 'package:expenses_tracker/models/transaction.dart';
+
+import 'package:expenses_tracker/widgets/transactions/transactions_item.dart';
+import 'package:expenses_tracker/widgets/transactions/transactions_form.dart';
+import 'package:expenses_tracker/widgets/transactions/transactions_empty.dart';
+import 'package:expenses_tracker/widgets/chart/chart_entry.dart';
 
 void main() => runApp(const MyApp());
 
@@ -74,10 +77,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _list = [
-    Transaction(
-      uid: '1sasd', title: 'Снюс', amount: 500.00, date: DateTime.now()),
-    Transaction(
-      uid: 'sa2ffdf', title: 'Шпак', amount: 267.22, date: DateTime.now())
+    // Transaction(
+    //   uid: '1sasd', title: 'Снюс', amount: 500.00, date: DateTime.now()),
+    // Transaction(
+    //   uid: 'sa2ffdf', title: 'Шпак', amount: 267.22, date: DateTime.now())
   ];
 
   void _createTransaction(String title, double amount) {
@@ -101,6 +104,16 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  List<Transaction> get _recentTransactions {
+    var filtetedList = _list.where((element) {
+      final thresholdDay = DateTime.now().subtract(const Duration(days: 7));
+
+      return element.date.isAfter(thresholdDay);
+    });
+
+    return filtetedList.toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting();
@@ -120,16 +133,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: <Widget>[
-          Card(
-            elevation: 3,
-            color: Theme.of(context).primaryColor,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: const Text('Chart')),
+          ChartEntry(
+            transactionsList: _recentTransactions
           ),
           SizedBox(
             height: 325,
-            child: ListView.builder(
+            width: MediaQuery.of(context).size.width,
+            child: _list.isEmpty ? const TransactionsEmpty() : ListView.builder(
               itemBuilder: (_, idx) {
                 return Card(
                     child: TransactionsItem(transaction: _list[idx]));

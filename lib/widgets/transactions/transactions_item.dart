@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TransactionsItem extends StatelessWidget {
-  const TransactionsItem({super.key, required this.transaction});
-
   final Transaction transaction;
+
+  const TransactionsItem({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context) {
